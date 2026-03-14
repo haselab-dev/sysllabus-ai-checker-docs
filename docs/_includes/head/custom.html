@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+<script>
+	window.DOCS_SEARCH_DATA_URL = {{ '/assets/search.js' | relative_url | jsonify }};
+	window.DOCS_SEARCH_PAGE_URL = {{ '/search/' | relative_url | jsonify }};
+	window.DOCS_PAGE_URL = {{ page.url | jsonify }};
+	window.DOCS_SIDEBAR_NAV = {{ page.sidebar.nav | jsonify }};
+	window.DOCS_NAVIGATION = {{ site.data.navigation | jsonify }};
+
+	(function () {
+		var platform = '';
+
+		if (navigator.userAgentData && navigator.userAgentData.platform) {
+			platform = navigator.userAgentData.platform;
+		} else {
+			platform = navigator.platform || navigator.userAgent || '';
+		}
+
+		platform = String(platform).toLowerCase();
+
+		if (
+			platform.indexOf('mac') !== -1 ||
+			platform.indexOf('iphone') !== -1 ||
+			platform.indexOf('ipad') !== -1 ||
+			platform.indexOf('ipod') !== -1
+		) {
+			window.DOCS_SEARCH_SHORTCUT = {
+				hint: 'Mac は ⌘K でも開けます。',
+				label: '⌘K',
+				title: 'Mac は Command+K で検索を開けます'
+			};
+			document.documentElement.setAttribute('data-docs-shortcut', 'apple');
+			return;
+		}
+
+		window.DOCS_SEARCH_SHORTCUT = {
+			hint: 'Windows / Linux は Ctrl+K でも開けます。',
+			label: 'Ctrl+K',
+			title: 'Windows / Linux は Ctrl+K で検索を開けます'
+		};
+		document.documentElement.setAttribute('data-docs-shortcut', 'default');
+	})();
+</script>
+<script defer src="{{ '/assets/js/site-search.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/section-nav.js' | relative_url }}"></script>

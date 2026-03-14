@@ -1,0 +1,43 @@
+{%- comment -%} navigation.yml をもとにサイドバーを描画し、トップレベルに url がある場合もリンクとして表示できるように変更。 {%- endcomment -%}
+{%- assign nav_key = page.sidebar.nav -%}
+{%- assign entries = site.data.navigation[nav_key] -%}
+
+{%- if entries and entries.size > 0 -%}
+<div class="sidebar-toc">
+  <ul class="toc toc--navigator">
+    {%- for entry in entries -%}
+      {%- assign entry_title = entry.title -%}
+      {%- if entry_title == nil and entry.titles -%}
+        {%- assign entry_title = entry.titles[site.lang] | default: entry.titles.first[1] -%}
+      {%- endif -%}
+
+      {%- assign entry_url = entry.url | relative_url -%}
+      {%- assign is_entry_active = false -%}
+      {%- if entry.url and page.url == entry.url -%}
+        {%- assign is_entry_active = true -%}
+      {%- endif -%}
+
+      <li class="toc-h1{% if is_entry_active %} active{% endif %}">
+        {%- if entry.url -%}
+          <a href="{{ entry_url }}">{{ entry_title }}</a>
+        {%- else -%}
+          {{ entry_title }}
+        {%- endif -%}
+      </li>
+
+      {%- if entry.children -%}
+        {%- for child in entry.children -%}
+          {%- assign child_title = child.title -%}
+          {%- if child_title == nil and child.titles -%}
+            {%- assign child_title = child.titles[site.lang] | default: child.titles.first[1] -%}
+          {%- endif -%}
+
+          <li class="toc-h2{% if page.url == child.url %} active{% endif %}">
+            <a href="{{ child.url | relative_url }}">{{ child_title }}</a>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>
+{%- endif -%}

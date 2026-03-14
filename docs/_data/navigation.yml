@@ -1,0 +1,23 @@
+header:
+  - titles:
+      ja: TOP
+    url: /
+  - titles:
+      ja: Docs
+    url: /getting-started/initial-settings/
+    key: docs
+
+docs:
+  - title: トップ
+    url: /
+  - title: はじめに
+    url: /getting-started/initial-settings/
+    children:
+      - title: 初期設定
+        url: /getting-started/initial-settings/
+      - title: インストール方法
+        url: /getting-started/installation/
+  - title: リファレンス
+    children:
+      - title: 保存場所と生成ファイル
+        url: /reference/storage/

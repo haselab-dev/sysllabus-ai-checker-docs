@@ -1,0 +1,17 @@
+title: Syllabus AI Checker
+description: シラバス CSV の AI チェック、設定、履歴管理のためのドキュメント
+lang: ja
+url: 'https://haselab-dev.github.io'
+baseurl: '/sysllabus-ai-checker-docs'
+remote_theme: kitian616/jekyll-TeXt-theme
+markdown: kramdown
+permalink: pretty
+plugins:
+  - jekyll-remote-theme
+sources: bootcdn
+text_skin: default
+highlight_theme: default
+repository: haselab-dev/sysllabus-ai-checker-docs
+repository_tree: main/docs
+toc:
+  selectors: 'h1,h2,h3'
