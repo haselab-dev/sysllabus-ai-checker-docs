@@ -16,7 +16,7 @@ docs:
   - title: はじめに
     url: /getting-started/
     children:
-      - title: APIプロバイダー別設定
+      - title: 利用するLLMモデルの準備
         url: /getting-started/api-providers/
       - title: 初期設定
         url: /getting-started/initial-settings/

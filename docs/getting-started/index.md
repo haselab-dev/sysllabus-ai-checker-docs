@@ -14,15 +14,15 @@ aside: false
 
 <div class="docs-guide-cards">
   <div class="docs-guide-cards__item">
-    <span class="docs-guide-cards__step">1. APIキーを発行する</span>
+    <span class="docs-guide-cards__step">1. 利用するLLMモデルを準備する</span>
     <span class="docs-guide-cards__text">使用するLLMのプロバイダーを決めて，<code>APIキー</code>、<code>ベースURL</code>、<code>モデル名</code> を確認します．</span>
-    <a class="docs-guide-cards__link" href="{{ '/getting-started/api-providers/' | relative_url }}">APIプロバイダー別設定を見る</a>
+    <a class="docs-guide-cards__link" href="{{ '/getting-started/api-providers/' | relative_url }}">利用するLLMモデルの準備の詳細を見る</a>
   </div>
 
   <div class="docs-guide-cards__item">
     <span class="docs-guide-cards__step">2. 設定に入力する</span>
     <span class="docs-guide-cards__text">取得した値をアプリの設定画面に入力して保存します．</span>
-    <a class="docs-guide-cards__link" href="{{ '/getting-started/initial-settings/' | relative_url }}">初期設定を見る</a>
+    <a class="docs-guide-cards__link" href="{{ '/getting-started/initial-settings/' | relative_url }}">初期設定の詳細を見る</a>
   </div>
 
   <div class="docs-guide-cards__item">
