@@ -4,7 +4,7 @@ header:
     url: /
   - titles:
       ja: Docs
-    url: /getting-started/initial-settings/
+    url: /getting-started/
     key: docs
   - titles:
       ja: 検索
@@ -14,12 +14,14 @@ docs:
   - title: トップ
     url: /
   - title: はじめに
-    url: /getting-started/initial-settings/
+    url: /getting-started/
     children:
+      - title: APIプロバイダー別設定
+        url: /getting-started/api-providers/
       - title: 初期設定
         url: /getting-started/initial-settings/
-      - title: インストール方法
-        url: /getting-started/installation/
+      - title: 使用デモ
+        url: /getting-started/demo/
   - title: リファレンス
     children:
       - title: 保存場所と生成ファイル

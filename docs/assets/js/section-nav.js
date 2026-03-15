@@ -7,22 +7,50 @@
     callback();
   }
 
-  function collectUrls(entries) {
-    return (entries || []).reduce(function (urls, entry) {
+  function collectItems(entries) {
+    return (entries || []).reduce(function (items, entry) {
       if (entry.url) {
-        urls.push(entry.url);
+        items.push({
+          title: entry.title || '',
+          url: entry.url
+        });
       }
 
       if (Array.isArray(entry.children)) {
         entry.children.forEach(function (child) {
           if (child.url) {
-            urls.push(child.url);
+            items.push({
+              title: child.title || '',
+              url: child.url
+            });
           }
         });
       }
 
-      return urls;
+      return items;
     }, []);
+  }
+
+  function withBaseurl(url) {
+    var baseurl = window.DOCS_BASEURL || '';
+
+    if (!url) {
+      return url;
+    }
+
+    if (/^https?:\/\//.test(url)) {
+      return url;
+    }
+
+    if (!baseurl) {
+      return url;
+    }
+
+    if (url === '/') {
+      return baseurl + '/';
+    }
+
+    return baseurl + url;
   }
 
   ready(function () {
@@ -45,25 +73,80 @@
       nextLabel.textContent = '次のページ';
     }
 
-    var urls = collectUrls(navigation[navKey]);
-    var currentIndex = urls.indexOf(currentUrl);
+    var items = collectItems(navigation[navKey]);
+    var currentIndex = items.findIndex(function (item) {
+      return item.url === currentUrl;
+    });
+    var previous = navigatorElement.querySelector('.previous');
+    var next = navigatorElement.querySelector('.next');
 
     if (currentIndex === -1) {
       return;
     }
 
-    if (currentIndex === 0) {
-      var previous = navigatorElement.querySelector('.previous');
-      if (previous) {
-        previous.remove();
+    function ensureLinkElement(className, fallbackLabel) {
+      var container = navigatorElement.querySelector('.' + className);
+      var spanElement;
+      var anchorElement;
+
+      if (container) {
+        return container;
       }
+
+      container = document.createElement('div');
+      container.className = className;
+
+      spanElement = document.createElement('span');
+      spanElement.textContent = fallbackLabel;
+      container.appendChild(spanElement);
+
+      anchorElement = document.createElement('a');
+      container.appendChild(anchorElement);
+
+      navigatorElement.appendChild(container);
+      return container;
     }
 
-    if (currentIndex === urls.length - 1) {
-      var next = navigatorElement.querySelector('.next');
-      if (next) {
-        next.remove();
+    function applyLink(linkElement, item, fallbackLabel, className) {
+      var anchorElement;
+      var titleElement;
+
+      if (!item) {
+        if (linkElement) {
+          linkElement.remove();
+        }
+        return;
       }
+
+      linkElement = linkElement || ensureLinkElement(className, fallbackLabel);
+
+      anchorElement = linkElement.querySelector('a');
+      if (!anchorElement) {
+        return;
+      }
+
+      anchorElement.setAttribute('href', withBaseurl(item.url));
+      anchorElement.setAttribute('title', item.title || fallbackLabel);
+
+      titleElement = anchorElement.querySelector('.title, strong, small');
+      if (titleElement && item.title) {
+        titleElement.textContent = item.title;
+        return;
+      }
+
+      anchorElement.textContent = item.title || fallbackLabel;
+    }
+
+    if (currentIndex === 0) {
+      applyLink(previous, null, '前のページ', 'previous');
+    } else {
+      applyLink(previous, items[currentIndex - 1], '前のページ', 'previous');
+    }
+
+    if (currentIndex === items.length - 1) {
+      applyLink(next, null, '次のページ', 'next');
+    } else {
+      applyLink(next, items[currentIndex + 1], '次のページ', 'next');
     }
 
     if (!navigatorElement.children.length) {

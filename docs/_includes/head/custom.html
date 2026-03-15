@@ -2,6 +2,7 @@
 <script>
 	window.DOCS_SEARCH_DATA_URL = {{ '/assets/search.js' | relative_url | jsonify }};
 	window.DOCS_SEARCH_PAGE_URL = {{ '/search/' | relative_url | jsonify }};
+	window.DOCS_BASEURL = {{ site.baseurl | jsonify }};
 	window.DOCS_PAGE_URL = {{ page.url | jsonify }};
 	window.DOCS_SIDEBAR_NAV = {{ page.sidebar.nav | jsonify }};
 	window.DOCS_NAVIGATION = {{ site.data.navigation | jsonify }};
