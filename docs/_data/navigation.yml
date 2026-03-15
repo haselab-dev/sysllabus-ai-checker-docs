@@ -6,6 +6,9 @@ header:
       ja: Docs
     url: /getting-started/initial-settings/
     key: docs
+  - titles:
+      ja: 検索
+    url: /search/
 
 docs:
   - title: トップ
