@@ -1,11 +1,6 @@
 ---
 title: はじめに
 description: 動作に必要な最低限の準備を順番に確認するページ
-layout: article
-nav_key: docs
-sidebar:
-  nav: docs
-aside: false
 ---
 
 このセクションでは動作に必要な最低限のステップを説明します．

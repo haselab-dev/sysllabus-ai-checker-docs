@@ -15,3 +15,23 @@ repository: haselab-dev/sysllabus-ai-checker-docs
 repository_tree: main/docs
 toc:
   selectors: 'h1,h2,h3'
+defaults:
+  - scope:
+      path: ''
+      type: pages
+    values:
+      layout: article
+      sidebar:
+        nav: docs
+      aside:
+        toc: true
+  - scope:
+      path: 'getting-started'
+      type: pages
+    values:
+      nav_key: docs
+  - scope:
+      path: 'reference'
+      type: pages
+    values:
+      nav_key: docs

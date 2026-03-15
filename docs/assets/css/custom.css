@@ -26,6 +26,9 @@
 
 .docs-guide-cards__step {
   display: block;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
   color: #1f2328;
   font-weight: 700;
 }
@@ -348,6 +351,21 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
   text-decoration: none;
   border-color: #c0c9d2;
   background: #f8fafc;
+}
+
+@media (min-width: 1024px) {
+  .layout--page--sidebar .page__main {
+    overflow-x: auto;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .layout--page--sidebar .page__main::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 }
 
 @media (max-width: 960px) {

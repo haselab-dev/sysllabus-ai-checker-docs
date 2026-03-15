@@ -1,12 +1,6 @@
 ---
 title: トップ
 description: シラバス CSV の AI チェックを導入から運用まで整理したドキュメント
-layout: article
-nav_key: TOP
-sidebar:
-  nav: docs
-aside:
-  toc: true
 show_title: false
 ---
 
