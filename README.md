@@ -25,7 +25,7 @@ bundle exec jekyll serve -s docs
 
 起動後、ブラウザで [http://localhost:4000](http://localhost:4000) にアクセスする
 
-### 3. 本番用の静的ファイルをビルド
+### 本番用の静的ファイルをビルド
 
 ```bash
 bundle exec jekyll build -s docs
