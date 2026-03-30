@@ -8,10 +8,10 @@ description: APIキー、ベースURL、モデル名の確認方法
 使用するLLMプロバイダーを選択し，以下を参考にしながら `APIキー`、`ベースURL`、`モデル名` を確認してください．
 
 <div class="provider-tabs">
-  <input checked id="provider-tab-gemini" name="provider-tabs" type="radio">
-  <input id="provider-tab-openai" name="provider-tabs" type="radio">
-  <input id="provider-tab-openrouter" name="provider-tabs" type="radio">
-  <input id="provider-tab-anthropic" name="provider-tabs" type="radio">
+  <input checked data-provider="gemini" id="provider-tab-gemini" name="provider-tabs" type="radio">
+  <input data-provider="openai" id="provider-tab-openai" name="provider-tabs" type="radio">
+  <input data-provider="openrouter" id="provider-tab-openrouter" name="provider-tabs" type="radio">
+  <input data-provider="anthropic" id="provider-tab-anthropic" name="provider-tabs" type="radio">
 
   <div class="provider-tabs__labels">
     <label for="provider-tab-gemini">Gemini</label>
@@ -21,22 +21,22 @@ description: APIキー、ベースURL、モデル名の確認方法
   </div>
 
   <div class="provider-tabs__panels">
-    <section class="provider-tabs__panel provider-tabs__panel--gemini">
+    <section class="provider-tabs__panel provider-tabs__panel--gemini" data-provider="gemini">
       {% capture provider_content %}{% include_relative _providers/gemini.md %}{% endcapture %}
       {{ provider_content | markdownify }}
     </section>
 
-    <section class="provider-tabs__panel provider-tabs__panel--openai">
+    <section class="provider-tabs__panel provider-tabs__panel--openai" data-provider="openai">
       {% capture provider_content %}{% include_relative _providers/openai.md %}{% endcapture %}
       {{ provider_content | markdownify }}
     </section>
 
-    <section class="provider-tabs__panel provider-tabs__panel--openrouter">
+    <section class="provider-tabs__panel provider-tabs__panel--openrouter" data-provider="openrouter">
       {% capture provider_content %}{% include_relative _providers/openrouter.md %}{% endcapture %}
       {{ provider_content | markdownify }}
     </section>
 
-    <section class="provider-tabs__panel provider-tabs__panel--anthropic">
+    <section class="provider-tabs__panel provider-tabs__panel--anthropic" data-provider="anthropic">
       {% capture provider_content %}{% include_relative _providers/anthropic.md %}{% endcapture %}
       {{ provider_content | markdownify }}
     </section>
