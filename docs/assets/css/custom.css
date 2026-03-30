@@ -10,8 +10,8 @@
 
 .docs-guide-cards__item {
   display: grid;
-  gap: 0.35rem;
-  padding: 1rem 1.1rem;
+  gap: 0.3rem;
+  padding: 0.85rem 1rem;
   border: 1px solid #d8dee4;
   border-radius: 14px;
   background: #fff;
@@ -24,11 +24,14 @@
   background: #fbfcfe;
 }
 
-.docs-guide-cards__step {
+.article__content .docs-guide-cards__item > .docs-guide-cards__step {
   display: block;
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.5;
+  padding: 0;
+  border: 0;
+  position: static;
+  font-size: 1.15rem;
+  line-height: 1.35;
   color: #1f2328;
   font-weight: 700;
 }
@@ -40,11 +43,15 @@
 }
 
 .docs-guide-cards__link {
-  display: inline-flex;
   justify-self: start;
   margin-top: 0.1rem;
-  color: #2456d3;
   font-weight: 600;
+}
+
+.docs-guide-cards__link a {
+  display: inline-flex;
+  color: #2456d3;
+  text-decoration: none !important;
 }
 
 .docs-404 {
