@@ -33,6 +33,10 @@ docs:
         url: /reference/prompts/
       - title: 設定画面
         url: /reference/settings/
+      - title: 入力ファイル
+        url: /reference/input-files/
+      - title: 出力ファイル
+        url: /reference/output-files/
       - title: 保存場所と生成ファイル
         url: /reference/storage/
       - title: よくあるエラー
