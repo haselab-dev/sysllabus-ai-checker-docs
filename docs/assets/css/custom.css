@@ -504,8 +504,7 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
 
 #provider-tab-gemini:checked ~ .provider-tabs__labels label[for="provider-tab-gemini"],
 #provider-tab-openai:checked ~ .provider-tabs__labels label[for="provider-tab-openai"],
-#provider-tab-openrouter:checked ~ .provider-tabs__labels label[for="provider-tab-openrouter"],
-#provider-tab-anthropic:checked ~ .provider-tabs__labels label[for="provider-tab-anthropic"] {
+#provider-tab-openrouter:checked ~ .provider-tabs__labels label[for="provider-tab-openrouter"] {
   background: #e8f0ff;
   border-color: #4f7cff;
   color: #11327a;
@@ -513,8 +512,7 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
 
 #provider-tab-gemini:checked ~ .provider-tabs__panels .provider-tabs__panel--gemini,
 #provider-tab-openai:checked ~ .provider-tabs__panels .provider-tabs__panel--openai,
-#provider-tab-openrouter:checked ~ .provider-tabs__panels .provider-tabs__panel--openrouter,
-#provider-tab-anthropic:checked ~ .provider-tabs__panels .provider-tabs__panel--anthropic {
+#provider-tab-openrouter:checked ~ .provider-tabs__panels .provider-tabs__panel--openrouter {
   display: block;
 }
 

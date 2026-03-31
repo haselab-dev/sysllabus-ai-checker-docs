@@ -1,3 +1,0 @@
-## Anthropic
-
-Coming soon.
