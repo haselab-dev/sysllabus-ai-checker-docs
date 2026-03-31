@@ -26,7 +26,7 @@ runs/<run-id>/
   run.json
   run.log
   files/
-    1-<入力ファイル名>/
+    <index>-<入力ファイル名>/
       input.csv
       result.csv
       result-binary.csv
@@ -47,7 +47,4 @@ runs/<run-id>/
 
 ## APIキーの扱い
 
-- 保存先: `config.toml` に保存されます．
-- 保存形式: 暗号化されず，平文で保存されます．
-- 注意: `config.toml` や `api_key` を他人に共有しないでください．
-- 更新と削除: 不要になった場合は，設定画面で値を更新するか `config.toml` を削除してください．
+APIキーは `config.toml` に保存されます．暗号化はされず，平文のまま保存されます．そのため，`config.toml` や `api_key` を他人に共有しないでください．不要になった場合は，設定画面で値を更新するか `config.toml` を削除してください．
