@@ -1,6 +1,6 @@
 header:
   - titles:
-      ja: TOP
+      ja: Top
     url: /
   - titles:
       ja: Docs
@@ -39,5 +39,3 @@ docs:
         url: /reference/output-files/
       - title: 保存場所と生成ファイル
         url: /reference/storage/
-      - title: よくあるエラー
-        url: /reference/troubleshooting/
