@@ -488,6 +488,20 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
   white-space: nowrap;
 }
 
+/* Keep code typography aligned with surrounding article text. */
+.article__content code,
+.article__content tt,
+.article__content kbd {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.article__content pre,
+.article__content pre code {
+  font-size: 1em;
+  font-weight: 400;
+}
+
 #provider-tab-gemini:checked ~ .provider-tabs__labels label[for="provider-tab-gemini"],
 #provider-tab-openai:checked ~ .provider-tabs__labels label[for="provider-tab-openai"],
 #provider-tab-openrouter:checked ~ .provider-tabs__labels label[for="provider-tab-openrouter"],
