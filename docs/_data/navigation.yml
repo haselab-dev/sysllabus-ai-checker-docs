@@ -23,6 +23,17 @@ docs:
       - title: 使用デモ
         url: /getting-started/demo/
   - title: リファレンス
+    url: /reference/
     children:
+      - title: チェック画面
+        url: /reference/check/
+      - title: 履歴画面
+        url: /reference/history/
+      - title: プロンプト画面
+        url: /reference/prompts/
+      - title: 設定画面
+        url: /reference/settings/
       - title: 保存場所と生成ファイル
         url: /reference/storage/
+      - title: よくあるエラー
+        url: /reference/troubleshooting/
