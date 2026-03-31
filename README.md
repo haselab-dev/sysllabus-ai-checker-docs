@@ -23,7 +23,7 @@ bundle install
 bundle exec jekyll serve -s docs
 ```
 
-起動後、ブラウザで [http://localhost:4000](http://localhost:4000) にアクセスする
+起動後、ブラウザで [http://127.0.0.1:4000/sysllabus-ai-checker-docs/](http://127.0.0.1:4000/sysllabus-ai-checker-docs/) にアクセスする
 
 ### 本番用の静的ファイルをビルド
 
