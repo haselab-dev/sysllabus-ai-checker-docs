@@ -462,12 +462,14 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
   font-weight: 600;
   line-height: 1.2;
   background: #fff;
-  color: #24292f;
+  color: #1f2328;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .provider-tabs__labels label:hover {
-  border-color: #8c959f;
+  border-color: rgba(252, 77, 80, 0.45);
+  background: rgba(252, 77, 80, 0.05);
+  color: #fc4d50;
 }
 
 .provider-tabs__panel {
@@ -480,6 +482,10 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
 
 .provider-tabs__panel > :first-child {
   margin-top: 0;
+}
+
+.provider-tabs__panel > h2 {
+  color: #1f2328;
 }
 
 .provider-tabs__panel code {
@@ -503,9 +509,9 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
 #provider-tab-gemini:checked ~ .provider-tabs__labels label[for="provider-tab-gemini"],
 #provider-tab-openai:checked ~ .provider-tabs__labels label[for="provider-tab-openai"],
 #provider-tab-openrouter:checked ~ .provider-tabs__labels label[for="provider-tab-openrouter"] {
-  background: #e8f0ff;
-  border-color: #4f7cff;
-  color: #11327a;
+  background: rgba(252, 77, 80, 0.10);
+  border-color: #fc4d50;
+  color: #fc4d50;
 }
 
 #provider-tab-gemini:checked ~ .provider-tabs__panels .provider-tabs__panel--gemini,
