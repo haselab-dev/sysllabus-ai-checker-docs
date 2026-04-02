@@ -2,7 +2,7 @@
 
 ### APIキーの発行
 
-1. [OpenRouter の Authentication ドキュメント](https://openrouter.ai/docs/api/reference/authentication) にアクセスします．
+1. [https://openrouter.ai/docs/api/reference/authentication](https://openrouter.ai/docs/api/reference/authentication) にアクセスします．
 
    <img src="{{ '/assets/screenshots/api-providers/openrouter/api_key_step1.png' | relative_url }}" alt="OpenRouter Documentation の Authentication ページ。Using an API key セクションと first create your key リンクが表示されている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
@@ -28,7 +28,7 @@
 
 2026年4月2日現在のベースURLは `https://openrouter.ai/api/v1` です．
 
-変更があるかどうかは [OpenRouter Quickstart](https://openrouter.ai/docs/quickstart) の `Using the OpenAI SDK` で確認してください．
+変更があるかどうかは [https://openrouter.ai/docs/quickstart](https://openrouter.ai/docs/quickstart) の `Using the OpenAI SDK` で確認してください．
 
 ```typescript
 const openai = new OpenAI({
@@ -43,7 +43,7 @@ const openai = new OpenAI({
 
 ### 使用できるモデルの確認
 
-1. [OpenRouter Models](https://openrouter.ai/models) を開きます．
+1. [https://openrouter.ai/models](https://openrouter.ai/models) を開きます．
 
    <img src="{{ '/assets/screenshots/api-providers/openrouter/model_name_step1.png' | relative_url }}" alt="OpenRouter の Models ページ。検索欄とモデル一覧が表示され、ページ上部に 667 models と表示されている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
@@ -53,4 +53,4 @@ const openai = new OpenAI({
 
    <img src="{{ '/assets/screenshots/api-providers/openrouter/model_name_step2.png' | relative_url }}" alt="OpenRouter の OpenAI: GPT-5.2 モデル詳細ページ。モデル ID openai/gpt-5.2 と価格、コンテキスト長、プロバイダー一覧が表示されている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
-4. このアプリでは，OpenRouter のモデル ID をそのまま `モデル名` に入れます．たとえばコード例の `openai/gpt-5.2` のように，`プロバイダ名/モデル名` の形式を使います．テキストを扱えるモデルを [Models](https://openrouter.ai/models) から選んでください．
+4. このアプリでは，OpenRouter のモデル ID をそのまま `モデル名` に入れます．たとえばコード例の `openai/gpt-5.2` のように，`プロバイダ名/モデル名` の形式を使います．テキストを扱えるモデルを [https://openrouter.ai/models](https://openrouter.ai/models) から選んでください．

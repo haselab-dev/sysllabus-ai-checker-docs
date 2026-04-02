@@ -2,11 +2,11 @@
 
 ### APIキーの発行
 
-1. [OpenAI の quickstart](https://developers.openai.com/api/docs/quickstart) にアクセスします．
+1. [https://developers.openai.com/api/docs/quickstart](https://developers.openai.com/api/docs/quickstart) にアクセスします．
 
    <img src="{{ '/assets/screenshots/api-providers/openai/api_key_step1.png' | relative_url }}" alt="OpenAI Developers の Developer quickstart ページ。Create and export an API key セクションと Create an API Key ボタンが表示されている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
-2. `Create an API Key` をクリックして [API keys](https://platform.openai.com/api-keys) を開きます．OpenAI にログインしていない場合は，先にログイン画面が表示されます．
+2. `Create an API Key` をクリックして [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys) を開きます．OpenAI にログインしていない場合は，先にログイン画面が表示されます．
 
    <img src="{{ '/assets/screenshots/api-providers/openai/api_key_step2.png' | relative_url }}" alt="OpenAI Platform のログイン画面。Build on the OpenAI API Platform と表示され、メールアドレス欄と Continue ボタンが見えている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
@@ -22,7 +22,7 @@
 
 5. 発行後に表示された API キーはその場でコピーして保存しておきます．この表示はあとから再表示できません．
 
-6. 残高や課金設定は [Billing overview](https://platform.openai.com/settings/organization/billing/overview) で確認できます．
+6. 残高や課金設定は [https://platform.openai.com/settings/organization/billing/overview](https://platform.openai.com/settings/organization/billing/overview) で確認できます．
 
    <img src="{{ '/assets/screenshots/api-providers/openai/billing_step1.png' | relative_url }}" alt="OpenAI Platform の Billing overview 画面。Credit remaining と Add payment details、View usage が表示されている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
@@ -32,7 +32,7 @@
 
 2026年4月2日現在のベースURLは `https://api.openai.com/v1/` です．
 
-変更があるかどうかは [API Overview](https://developers.openai.com/api/reference/overview) や quickstart のリクエスト例で，`https://api.openai.com/v1/...` になっているかを確認してください．
+変更があるかどうかは [https://developers.openai.com/api/reference/overview](https://developers.openai.com/api/reference/overview) や quickstart のリクエスト例で，`https://api.openai.com/v1/...` になっているかを確認してください．
 
 ```bash
 curl https://api.openai.com/v1/models \
@@ -45,7 +45,7 @@ curl https://api.openai.com/v1/models \
 
 ### 使用できるモデルの確認
 
-1. [Models](https://developers.openai.com/api/docs/models) を開きます．
+1. [https://developers.openai.com/api/docs/models](https://developers.openai.com/api/docs/models) を開きます．
 
    <img src="{{ '/assets/screenshots/api-providers/openai/model_name_step1.png' | relative_url }}" alt="OpenAI Developers の Models ページ。Choosing a model と Frontier models が表示され、gpt-5.4, gpt-5.4-mini, gpt-5.4-nano が見えている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 

@@ -4,7 +4,7 @@
 
 Google AI Studio で API キーを作成します。
 
-1. Google にログインした状態で [Google AI Studio の API キー画面](https://aistudio.google.com/app/apikey) にアクセスします．
+1. Google にログインした状態で [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey) にアクセスします．
    <img src="{{ '/assets/screenshots/api-providers/gemini/api_key_step1.png' | relative_url }}" alt="Google AI Studio の API キー画面の状態 1。右上に APIキーを作成 ボタンが表示されている状態" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
 2. 右上の `APIキーを作成` をクリックします。
