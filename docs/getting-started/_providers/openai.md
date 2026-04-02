@@ -1,6 +1,6 @@
-## OpenAI
+## OpenAI {#openai}
 
-### APIキーの発行
+### APIキーの発行 {#openai-api-key}
 
 1. [https://developers.openai.com/api/docs/quickstart](https://developers.openai.com/api/docs/quickstart) にアクセスします．
 
@@ -28,7 +28,7 @@
 
    `Credit remaining` を見て残高を確認し，不足している場合は `Add payment details` から支払い方法を追加します．
 
-### OpenAI APIのbase_urlの確認
+### OpenAI APIのbase_urlの確認 {#openai-base-url}
 
 2026年4月2日現在のベースURLは `https://api.openai.com/v1/` です．
 
@@ -36,14 +36,16 @@
 
 ```bash
 curl https://api.openai.com/v1/models \
-  -H "Authorization: Bearer $OPENAI_API_KEY"
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "OpenAI-Organization: $ORGANIZATION_ID" \
+  -H "OpenAI-Project: $PROJECT_ID"
 ```
 
 このとき，使う `base_url` は `https://api.openai.com/v1/` です．
 
 <img src="{{ '/assets/screenshots/api-providers/openai/base_url_step1.png' | relative_url }}" alt="OpenAI API Reference の API Overview ページ。Authentication セクションに Authorization ヘッダーと curl https://api.openai.com/v1/models の例が表示されている画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
-### 使用できるモデルの確認
+### 使用できるモデルの確認 {#openai-model}
 
 1. [https://developers.openai.com/api/docs/models](https://developers.openai.com/api/docs/models) を開きます．
 

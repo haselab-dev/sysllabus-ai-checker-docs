@@ -1,6 +1,6 @@
-## Gemini
+## Gemini {#gemini}
 
-### APIキーの発行
+### APIキーの発行 {#gemini-api-key}
 
 Google AI Studio で API キーを作成します。
 
@@ -23,16 +23,18 @@ Google AI Studio で API キーを作成します。
 
 6. 無料枠で足りない場合は，「お支払い情報を設定」からクレジットカードなどを登録します．
 
-### OpenAI互換APIのbase_urlの確認
+### OpenAI互換APIのbase_urlの確認 {#gemini-base-url}
 
 2026年3月現在のベースURLは`https://generativelanguage.googleapis.com/v1beta/openai/`です．
 
 変更があるかどうかを[https://ai.google.dev/gemini-api/docs/openai](https://ai.google.dev/gemini-api/docs/openai)で確認してください．必ず，OPENAIのAPIと互換性があること確認してください．
 
 ```python
+from openai import OpenAI
+
 client = OpenAI(
     api_key="GEMINI_API_KEY",
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
 )
 ```
 
@@ -40,7 +42,7 @@ client = OpenAI(
 
 <img src="{{ '/assets/screenshots/api-providers/gemini/base_url_step1.png' | relative_url }}" alt="Gemini の OpenAI 互換 API ドキュメントで base_url を確認している画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
-### 使用できるモデルの確認
+### 使用できるモデルの確認 {#gemini-model}
 
 1. [https://ai.google.dev/gemini-api/docs/models](https://ai.google.dev/gemini-api/docs/models)から使用したいモデルを選んでください．
 

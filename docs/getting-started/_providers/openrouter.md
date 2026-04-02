@@ -1,6 +1,6 @@
-## OpenRouter
+## OpenRouter {#openrouter}
 
-### APIキーの発行
+### APIキーの発行 {#openrouter-api-key}
 
 1. [https://openrouter.ai/docs/api/reference/authentication](https://openrouter.ai/docs/api/reference/authentication) にアクセスします．
 
@@ -24,16 +24,22 @@
 
 5. 発行された API キーをコピーして保存しておきます．
 
-### OpenAI互換APIのbase_urlの確認
+### OpenAI互換APIのbase_urlの確認 {#openrouter-base-url}
 
 2026年4月2日現在のベースURLは `https://openrouter.ai/api/v1` です．
 
 変更があるかどうかは [https://openrouter.ai/docs/quickstart](https://openrouter.ai/docs/quickstart) の `Using the OpenAI SDK` で確認してください．
 
 ```typescript
+import OpenAI from "openai";
+
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: "<OPENROUTER_API_KEY>",
+  defaultHeaders: {
+    "HTTP-Referer": "<YOUR_SITE_URL>",
+    "X-OpenRouter-Title": "<YOUR_SITE_NAME>",
+  },
 });
 ```
 
@@ -41,7 +47,7 @@ const openai = new OpenAI({
 
 <img src="{{ '/assets/screenshots/api-providers/openrouter/base_url_step1.png' | relative_url }}" alt="OpenRouter Quickstart の Using the OpenAI SDK セクション。baseURL が https://openrouter.ai/api/v1 になっているコード例を表示している画面" style="max-width: 100%; height: auto; border: 1px solid #d8dee4; border-radius: 12px;">
 
-### 使用できるモデルの確認
+### 使用できるモデルの確認 {#openrouter-model}
 
 1. [https://openrouter.ai/models](https://openrouter.ai/models) を開きます．
 
