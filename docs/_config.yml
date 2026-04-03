@@ -31,7 +31,31 @@ defaults:
     values:
       nav_key: docs
   - scope:
+      path: 'index.md'
+      type: pages
+    values:
+      show_section_nav: false
+  - scope:
+      path: 'getting-started/index.md'
+      type: pages
+    values:
+      show_section_nav: false
+  - scope:
       path: 'reference'
       type: pages
     values:
       nav_key: reference
+  - scope:
+      path: 'reference/index.md'
+      type: pages
+    values:
+      show_section_nav: false
+      aside:
+        toc: false
+  - scope:
+      path: 'search.md'
+      type: pages
+    values:
+      show_section_nav: false
+      aside:
+        toc: false
