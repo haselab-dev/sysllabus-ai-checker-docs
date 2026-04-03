@@ -488,8 +488,12 @@ html[data-docs-shortcut="apple"] .header .navigation a[href$="/search/"]::after 
   color: #1f2328;
 }
 
-.provider-tabs__panel code {
+.provider-tabs__panel :not(pre) > code {
   white-space: nowrap;
+}
+
+.provider-tabs__panel pre code {
+  white-space: pre;
 }
 
 /* Keep code typography aligned with surrounding article text. */
