@@ -34,4 +34,4 @@ defaults:
       path: 'reference'
       type: pages
     values:
-      nav_key: docs
+      nav_key: reference

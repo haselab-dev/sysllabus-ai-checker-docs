@@ -1,11 +1,15 @@
 header:
   - titles:
-      ja: Top
+      ja: トップ
     url: /
   - titles:
-      ja: Docs
+      ja: はじめに
     url: /getting-started/
     key: docs
+  - titles:
+      ja: リファレンス
+    url: /reference/
+    key: reference
   - titles:
       ja: 検索
     url: /search/
