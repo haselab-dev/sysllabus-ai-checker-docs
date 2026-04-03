@@ -52,6 +52,18 @@
   display: inline-flex;
 }
 
+.docs-shortcut-hint {
+  display: none;
+}
+
+html[data-docs-shortcut="apple"] .docs-shortcut-hint--apple {
+  display: inline;
+}
+
+html[data-docs-shortcut="default"] .docs-shortcut-hint--default {
+  display: inline;
+}
+
 .docs-video-timestamps {
   display: flex;
   flex-wrap: wrap;
