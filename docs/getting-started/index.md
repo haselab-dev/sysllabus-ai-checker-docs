@@ -36,30 +36,9 @@ sudo xattr -r -d com.apple.quarantine /Applications/syllabus-ai-checker.app
 インストールが終わったら，次の 3 つを順番に進めるだけで使い始められます．
 
 <div class="docs-guide-cards">
-  <div class="docs-guide-cards__item" markdown="1">
-## 1. 利用するLLMモデルを準備する
-{: .docs-guide-cards__step }
+  {% include guide-card.html heading_tag='h3' id='prepare-llm' heading='1. 利用するLLMモデルを準備する' text='使用する LLM のプロバイダーを決めて，APIキー，ベースURL，モデル名を確認します．' url='/getting-started/api-providers/' link_label='利用するLLMモデルの準備の詳細を見る' %}
 
-<div class="docs-guide-cards__text">使用する LLM のプロバイダーを決めて，APIキー，ベースURL，モデル名を確認します．</div>
+  {% include guide-card.html heading_tag='h3' id='initial-settings' heading='2. 設定に入力する' text='取得した値をアプリの設定画面に入力して保存します．' url='/getting-started/initial-settings/' link_label='初期設定の詳細を見る' %}
 
-<div class="docs-guide-cards__link"><a href="{{ '/getting-started/api-providers/' | relative_url }}">利用するLLMモデルの準備の詳細を見る</a></div>
-  </div>
-
-  <div class="docs-guide-cards__item" markdown="1">
-## 2. 設定に入力する
-{: .docs-guide-cards__step }
-
-<div class="docs-guide-cards__text">取得した値をアプリの設定画面に入力して保存します．</div>
-
-<div class="docs-guide-cards__link"><a href="{{ '/getting-started/initial-settings/' | relative_url }}">初期設定の詳細を見る</a></div>
-  </div>
-
-  <div class="docs-guide-cards__item" markdown="1">
-## 3. 実際に使ってみる
-{: .docs-guide-cards__step }
-
-<div class="docs-guide-cards__text">CSV を読み込み，チェックを実行して結果を確認するまでの流れを確認します．</div>
-
-<div class="docs-guide-cards__link"><a href="{{ '/getting-started/demo/' | relative_url }}">使用デモを見る</a></div>
-  </div>
+  {% include guide-card.html heading_tag='h3' id='try-demo' heading='3. 実際に使ってみる' text='CSV を読み込み，チェックを実行して結果を確認するまでの流れを確認します．' url='/getting-started/demo/' link_label='使用デモを見る' %}
 </div>

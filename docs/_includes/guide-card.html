@@ -1,6 +1,12 @@
 {% assign heading_tag = include.heading_tag | default: 'div' %}
 <div class="docs-guide-cards__item">
   <{{ heading_tag }}{% if include.id %} id="{{ include.id }}"{% endif %} class="docs-guide-cards__step">{{ include.heading }}</{{ heading_tag }}>
-  <div class="docs-guide-cards__text">{{ include.text }}</div>
+  <div class="docs-guide-cards__text">
+    {{ include.text }}
+    {% if include.shortcut_hint %}
+      <span class="docs-shortcut-hint docs-shortcut-hint--apple"><code>Command+K</code> で検索を開けます．</span>
+      <span class="docs-shortcut-hint docs-shortcut-hint--default"><code>Ctrl+K</code> で検索を開けます．</span>
+    {% endif %}
+  </div>
   <div class="docs-guide-cards__link"><a href="{{ include.url | relative_url }}">{{ include.link_label }}</a></div>
 </div>

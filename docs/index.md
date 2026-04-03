@@ -21,12 +21,5 @@ show_title: false
 
   {% include guide-card.html heading_tag='h3' id='reference-guide' heading='機能を調べる' text='特定の画面や機能の使い方を確認したい方はこちらから．' url='/reference/' link_label='リファレンスを見る' %}
 
-  <div class="docs-guide-cards__item">
-    <h3 id="search-shortcut" class="docs-guide-cards__step">検索でページを探す</h3>
-    <div class="docs-guide-cards__text">
-      <span class="docs-shortcut-hint docs-shortcut-hint--apple"><code>Command+K</code> で検索を開けます．</span>
-      <span class="docs-shortcut-hint docs-shortcut-hint--default"><code>Ctrl+K</code> で検索を開けます．</span>
-    </div>
-    <div class="docs-guide-cards__link"><a href="{{ '/search/' | relative_url }}">検索を開く</a></div>
-  </div>
+  {% include guide-card.html heading_tag='h3' id='search-shortcut' heading='検索ですぐ探す' text='' shortcut_hint=true url='/search/' link_label='検索を開く' %}
 </div>
