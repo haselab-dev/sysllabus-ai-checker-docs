@@ -31,7 +31,30 @@
   }
 
   function normalize(value) {
-    return (value || '').toLowerCase().trim();
+    return String(value || '')
+      .normalize('NFKC')
+      .replace(/[\u30a1-\u30f6]/g, function (char) {
+        return String.fromCharCode(char.charCodeAt(0) - 0x60);
+      })
+      .toLowerCase()
+      .trim();
+  }
+
+  function splitTerms(query) {
+    return normalize(query).split(/\s+/).filter(Boolean);
+  }
+
+  function escapeHtml(value) {
+    return (value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function escapeRegExp(value) {
+    return (value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   function getShortcutConfig() {
@@ -76,13 +99,137 @@
     );
   }
 
-  function escapeHtml(value) {
-    return (value || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+  function highlightTerms(value, terms) {
+    var html = escapeHtml(value || '');
+
+    terms.forEach(function (term) {
+      if (!term) {
+        return;
+      }
+
+      html = html.replace(
+        new RegExp('(' + escapeRegExp(term) + ')', 'ig'),
+        '<mark class="docs-search-highlight">$1</mark>'
+      );
+    });
+
+    return html;
+  }
+
+  function findFirstMatchIndex(text, terms) {
+    var normalizedText = normalize(text);
+    var firstIndex = -1;
+
+    terms.forEach(function (term) {
+      var index = normalizedText.indexOf(term);
+      if (index !== -1 && (firstIndex === -1 || index < firstIndex)) {
+        firstIndex = index;
+      }
+    });
+
+    return firstIndex;
+  }
+
+  function buildExcerpt(content, terms) {
+    var text = (content || '').replace(/\s+/g, ' ').trim();
+    var start = 0;
+    var end = Math.min(text.length, 120);
+    var index;
+    var excerpt;
+
+    if (!text) {
+      return '';
+    }
+
+    if (terms.length) {
+      index = findFirstMatchIndex(text, terms);
+      if (index !== -1) {
+        start = Math.max(0, index - 32);
+        end = Math.min(text.length, index + 88);
+      }
+    }
+
+    excerpt = text.slice(start, end).trim();
+
+    if (start > 0) {
+      excerpt = '…' + excerpt;
+    }
+    if (end < text.length) {
+      excerpt += '…';
+    }
+
+    return highlightTerms(excerpt, terms);
+  }
+
+  function scoreItem(item, terms, fullQuery) {
+    var title = normalize(item.title);
+    var content = normalize(item.content);
+    var score = 0;
+    var matched = true;
+
+    if (fullQuery && title === fullQuery) {
+      score += 120;
+    } else if (fullQuery && title.indexOf(fullQuery) === 0) {
+      score += 40;
+    }
+
+    terms.forEach(function (term) {
+      var inTitle = title.indexOf(term) !== -1;
+      var inContent = content.indexOf(term) !== -1;
+
+      if (!inTitle && !inContent) {
+        matched = false;
+        return;
+      }
+
+      if (inTitle) {
+        score += 20;
+        if (title.indexOf(term) === 0) {
+          score += 8;
+        }
+      }
+
+      if (inContent) {
+        score += 5;
+      }
+    });
+
+    return matched ? score : -1;
+  }
+
+  function searchDocs(docs, query) {
+    var fullQuery = normalize(query);
+    var terms = splitTerms(query);
+    var matched;
+
+    if (!terms.length) {
+      return { items: [], total: 0, terms: [] };
+    }
+
+    matched = docs
+      .map(function (item) {
+        return {
+          item: item,
+          score: scoreItem(item, terms, fullQuery)
+        };
+      })
+      .filter(function (entry) {
+        return entry.score >= 0;
+      })
+      .sort(function (left, right) {
+        if (right.score !== left.score) {
+          return right.score - left.score;
+        }
+        return left.item.title.localeCompare(right.item.title, 'ja');
+      });
+
+    return {
+      items: matched.slice(0, 20).map(function (entry) {
+        return entry.item;
+      }),
+      total: matched.length,
+      terms: terms
+    };
   }
 
   function createModal() {
@@ -116,6 +263,10 @@
     var input = modal.querySelector('.docs-search-modal__input');
     var mobileCloseButton = modal.querySelector('.docs-search-modal__mobile-close');
     var results = modal.querySelector('.docs-search-modal__results');
+    var searchPage = document.querySelector('.js-docs-search-page');
+    var searchPageInput = document.querySelector('.js-docs-search-page-input');
+    var searchPageResults = document.querySelector('.js-docs-search-page-results');
+    var searchPageSummary = document.querySelector('.js-docs-search-page-summary');
 
     function updateMobileCloseButton() {
       if (normalize(input.value)) {
@@ -126,23 +277,25 @@
       mobileCloseButton.setAttribute('aria-label', '検索を閉じる');
     }
 
-    function render(items, query) {
+    function renderModal(result, query) {
       if (!query) {
         results.innerHTML = '<li class="docs-search-modal__empty">キーワードを入力すると候補が表示されます。</li>';
         return;
       }
 
-      if (!items.length) {
+      if (!result.items.length) {
         results.innerHTML = '<li class="docs-search-modal__empty">一致するページが見つかりませんでした。</li>';
         return;
       }
 
-      results.innerHTML = items.map(function (item) {
-        var excerpt = item.content ? escapeHtml(item.content.slice(0, 120)) : '';
+      results.innerHTML = result.items.map(function (item) {
+        var title = highlightTerms(item.title, result.terms);
+        var excerpt = buildExcerpt(item.content, result.terms);
+
         return (
           '<li class="docs-search-modal__item">' +
             '<a class="docs-search-modal__link" href="' + escapeHtml(item.url) + '">' +
-              '<span class="docs-search-modal__title">' + escapeHtml(item.title) + '</span>' +
+              '<span class="docs-search-modal__title">' + title + '</span>' +
               '<span class="docs-search-modal__url">' + escapeHtml(item.url) + '</span>' +
               (excerpt ? '<span class="docs-search-modal__excerpt">' + excerpt + '</span>' : '') +
             '</a>' +
@@ -151,18 +304,68 @@
       }).join('');
     }
 
-    function search(query) {
-      var keyword = normalize(query);
-      if (!keyword) {
-        render([], '');
+    function renderSearchPage(result, query) {
+      if (!searchPageResults || !searchPageSummary) {
         return;
       }
 
-      var filtered = docs.filter(function (item) {
-        return normalize(item.title).indexOf(keyword) !== -1 || normalize(item.content).indexOf(keyword) !== -1;
+      if (!query) {
+        searchPageSummary.textContent = 'キーワードを入力すると候補が表示されます．';
+        searchPageResults.innerHTML = '<li class="docs-search-page__empty">例: APIキー, OpenRouter, 履歴</li>';
+        return;
+      }
+
+      if (!result.items.length) {
+        searchPageSummary.textContent = '一致するページが見つかりませんでした．';
+        searchPageResults.innerHTML = '<li class="docs-search-page__empty">別のキーワードで試してください．</li>';
+        return;
+      }
+
+      searchPageSummary.textContent = result.total > result.items.length
+        ? result.total + ' 件見つかりました．上位 ' + result.items.length + ' 件を表示しています．'
+        : result.total + ' 件見つかりました．';
+
+      searchPageResults.innerHTML = result.items.map(function (item) {
+        var title = highlightTerms(item.title, result.terms);
+        var excerpt = buildExcerpt(item.content, result.terms);
+
+        return (
+          '<li class="docs-search-page__item">' +
+            '<a class="docs-search-page__link" href="' + escapeHtml(item.url) + '">' +
+              '<span class="docs-search-page__title">' + title + '</span>' +
+              '<span class="docs-search-page__url">' + escapeHtml(item.url) + '</span>' +
+              (excerpt ? '<span class="docs-search-page__excerpt">' + excerpt + '</span>' : '') +
+            '</a>' +
+          '</li>'
+        );
+      }).join('');
+    }
+
+    function ensureSearchData() {
+      if (searchDataLoaded) {
+        return Promise.resolve();
+      }
+
+      if (searchDataLoading) {
+        return searchDataLoading;
+      }
+
+      if (window.TEXT_SEARCH_DATA && Array.isArray(window.TEXT_SEARCH_DATA.docs)) {
+        docs = window.TEXT_SEARCH_DATA.docs;
+        searchDataLoaded = true;
+        return Promise.resolve();
+      }
+
+      searchDataLoading = loadScript(window.DOCS_SEARCH_DATA_URL).then(function () {
+        docs = (window.TEXT_SEARCH_DATA && window.TEXT_SEARCH_DATA.docs) || [];
+        searchDataLoaded = true;
       });
 
-      render(filtered.slice(0, 20), keyword);
+      return searchDataLoading;
+    }
+
+    function runSearch(query) {
+      return searchDocs(docs, query);
     }
 
     function lockBodyScroll() {
@@ -178,13 +381,17 @@
     }
 
     function lockScrollableElement(element) {
+      var computedStyle;
+      var currentPaddingRight;
+      var scrollbarWidth;
+
       if (!element) {
         return;
       }
 
-      var computedStyle = window.getComputedStyle(element);
-      var currentPaddingRight = parseFloat(computedStyle.paddingRight) || 0;
-      var scrollbarWidth = Math.max(0, element.offsetWidth - element.clientWidth);
+      computedStyle = window.getComputedStyle(element);
+      currentPaddingRight = parseFloat(computedStyle.paddingRight) || 0;
+      scrollbarWidth = Math.max(0, element.offsetWidth - element.clientWidth);
 
       lockedScrollableElements.push({
         element: element,
@@ -228,9 +435,9 @@
       lockPageScrollAreas();
       updateMobileCloseButton();
       input.focus();
-      render([], '');
+      renderModal({ items: [], total: 0, terms: [] }, '');
       ensureSearchData().then(function () {
-        search(input.value);
+        renderModal(runSearch(input.value), input.value);
       }).catch(function () {
         results.innerHTML = '<li class="docs-search-modal__empty">検索データの読み込みに失敗しました。</li>';
       });
@@ -250,6 +457,24 @@
       unlockPageScrollAreas();
     }
 
+    function syncSearchPageQuery(query) {
+      var url;
+
+      if (!searchPage) {
+        return;
+      }
+
+      url = new URL(window.location.href);
+
+      if (normalize(query)) {
+        url.searchParams.set('q', query);
+      } else {
+        url.searchParams.delete('q');
+      }
+
+      window.history.replaceState(null, '', url.toString());
+    }
+
     function bindTriggerLink(link) {
       if (!link || link.dataset.docsSearchBound === 'true') {
         return;
@@ -258,6 +483,25 @@
       link.setAttribute('title', shortcut.title);
       link.setAttribute('aria-label', '検索を開く。' + shortcut.title);
       link.addEventListener('click', function (event) {
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey ||
+          link.target === '_blank'
+        ) {
+          return;
+        }
+
+        if (window.DOCS_PAGE_URL === window.DOCS_SEARCH_PAGE_URL && searchPageInput) {
+          event.preventDefault();
+          searchPageInput.focus();
+          searchPageInput.select();
+          return;
+        }
+
         event.preventDefault();
         openModal();
       });
@@ -270,29 +514,6 @@
       Array.prototype.forEach.call(links, bindTriggerLink);
     }
 
-    function ensureSearchData() {
-      if (searchDataLoaded) {
-        return Promise.resolve();
-      }
-
-      if (searchDataLoading) {
-        return searchDataLoading;
-      }
-
-      if (window.TEXT_SEARCH_DATA && Array.isArray(window.TEXT_SEARCH_DATA.docs)) {
-        docs = window.TEXT_SEARCH_DATA.docs;
-        searchDataLoaded = true;
-        return Promise.resolve();
-      }
-
-      searchDataLoading = loadScript(window.DOCS_SEARCH_DATA_URL).then(function () {
-        docs = (window.TEXT_SEARCH_DATA && window.TEXT_SEARCH_DATA.docs) || [];
-        searchDataLoaded = true;
-      });
-
-      return searchDataLoading;
-    }
-
     modal.addEventListener('click', function (event) {
       if (event.target === modal) {
         closeModal();
@@ -301,19 +522,28 @@
 
     input.addEventListener('input', function () {
       updateMobileCloseButton();
-      search(input.value);
+      renderModal(runSearch(input.value), input.value);
     });
+
     mobileCloseButton.addEventListener('click', function () {
       if (normalize(input.value)) {
         input.value = '';
         updateMobileCloseButton();
-        search('');
+        renderModal({ items: [], total: 0, terms: [] }, '');
         input.focus();
         return;
       }
 
       closeModal();
     });
+
+    if (searchPageInput) {
+      searchPageInput.addEventListener('input', function () {
+        var query = searchPageInput.value;
+        syncSearchPageQuery(query);
+        renderSearchPage(runSearch(query), query);
+      });
+    }
 
     document.addEventListener('keydown', function (event) {
       var key = normalize(event.key);
@@ -325,6 +555,9 @@
         event.preventDefault();
         if (modal.classList.contains('is-open')) {
           closeModal();
+        } else if (window.DOCS_PAGE_URL === window.DOCS_SEARCH_PAGE_URL && searchPageInput) {
+          searchPageInput.focus();
+          searchPageInput.select();
         } else {
           openModal();
         }
@@ -335,7 +568,12 @@
           return;
         }
         event.preventDefault();
-        openModal();
+        if (window.DOCS_PAGE_URL === window.DOCS_SEARCH_PAGE_URL && searchPageInput) {
+          searchPageInput.focus();
+          searchPageInput.select();
+        } else {
+          openModal();
+        }
       }
 
       if (key === 'escape' && modal.classList.contains('is-open')) {
@@ -345,6 +583,26 @@
 
     bindTriggerLinks();
     updateMobileCloseButton();
-    render([], '');
+    renderModal({ items: [], total: 0, terms: [] }, '');
+    renderSearchPage({ items: [], total: 0, terms: [] }, '');
+
+    if (searchPage) {
+      ensureSearchData().then(function () {
+        var params = new URLSearchParams(window.location.search);
+        var query = params.get('q') || '';
+
+        if (searchPageInput) {
+          searchPageInput.value = query;
+        }
+        renderSearchPage(runSearch(query), query);
+      }).catch(function () {
+        if (searchPageSummary) {
+          searchPageSummary.textContent = '検索データの読み込みに失敗しました．';
+        }
+        if (searchPageResults) {
+          searchPageResults.innerHTML = '<li class="docs-search-page__empty">時間をおいて再読み込みしてください．</li>';
+        }
+      });
+    }
   });
 })();
