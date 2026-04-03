@@ -64,6 +64,33 @@ html[data-docs-shortcut="default"] .docs-shortcut-hint--default {
   display: inline;
 }
 
+.docs-os-warning {
+  margin: 0.85rem 0;
+  border: 1px solid #d8dee4;
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.docs-os-warning summary {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  color: #1f2328;
+}
+
+.docs-os-warning[open] summary {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.docs-os-warning > div {
+  padding: 0.9rem 1rem 0.2rem;
+}
+
+.docs-os-warning > div > :first-child {
+  margin-top: 0;
+}
+
 .docs-video-timestamps {
   display: flex;
   flex-wrap: wrap;
