@@ -7,6 +7,8 @@ description: APIキー、ベースURL、モデル名の確認方法
 
 使用するLLMプロバイダーを選択し，以下を参考にしながら `APIキー`、`ベースURL`、`モデル名` を確認してください．
 
+無料モデル中心で使いたい場合は，[無料で運用するには]({{ '/reference/openrouter-free/' | relative_url }}) も合わせて参照してください．
+
 <div class="provider-tabs">
   <input checked data-provider="gemini" id="provider-tab-gemini" name="provider-tabs" type="radio">
   <input data-provider="openai" id="provider-tab-openai" name="provider-tabs" type="radio">

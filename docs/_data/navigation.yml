@@ -39,3 +39,5 @@ docs:
         url: /reference/output-files/
       - title: 保存場所と生成ファイル
         url: /reference/storage/
+      - title: 無料で運用するには
+        url: /reference/openrouter-free/
