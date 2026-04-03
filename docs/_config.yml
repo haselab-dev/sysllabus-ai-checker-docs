@@ -8,7 +8,7 @@ markdown: kramdown
 permalink: pretty
 plugins:
   - jekyll-remote-theme
-sources: bootcdn
+sources: unpkg
 text_skin: default
 highlight_theme: default
 repository: haselab-dev/sysllabus-ai-checker-docs
