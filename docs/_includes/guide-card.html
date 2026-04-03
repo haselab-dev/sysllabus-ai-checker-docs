@@ -1,0 +1,6 @@
+{% assign heading_tag = include.heading_tag | default: 'div' %}
+<div class="docs-guide-cards__item">
+  <{{ heading_tag }} class="docs-guide-cards__step">{{ include.heading }}</{{ heading_tag }}>
+  <div class="docs-guide-cards__text">{{ include.text }}</div>
+  <div class="docs-guide-cards__link"><a href="{{ include.url | relative_url }}">{{ include.link_label }}</a></div>
+</div>

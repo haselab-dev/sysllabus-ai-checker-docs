@@ -152,6 +152,12 @@
   font-size: 0.95rem;
 }
 
+.docs-search-page__summary {
+  margin: 0 0 0.8rem;
+  color: #57606a;
+  font-size: 0.95rem;
+}
+
 .docs-search-page__results {
   margin: 0;
   padding: 0;
@@ -166,13 +172,46 @@
 .docs-search-page__link {
   display: block;
   padding: 0.95rem 0.2rem;
-  font-weight: 600;
-  text-decoration: none;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease;
+}
+
+.root[data-is-touch='false'] .docs-search-page__link:hover {
+  background: #fafbfc;
+}
+
+.docs-search-page__title {
+  display: block;
+  font-weight: 700;
+  color: #1f2328;
+}
+
+.docs-search-page__url {
+  display: block;
+  margin-top: 0.3rem;
+  color: #57606a;
+  font-size: 0.88rem;
+  word-break: break-all;
+}
+
+.docs-search-page__excerpt {
+  display: block;
+  margin-top: 0.45rem;
+  color: #57606a;
+  font-size: 0.93rem;
+  line-height: 1.5;
 }
 
 .docs-search-page__empty {
   padding: 1rem 0.2rem;
   color: #57606a;
+}
+
+.docs-search-highlight {
+  padding: 0 0.12em;
+  border-radius: 0.22rem;
+  background: #fff0a8;
+  color: inherit;
 }
 
 .docs-search-modal {
