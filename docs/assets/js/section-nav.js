@@ -7,10 +7,22 @@
     callback();
   }
 
+  function pushUniqueItem(items, item) {
+    if (!item || !item.url) {
+      return;
+    }
+
+    if (items.some(function (existingItem) { return existingItem.url === item.url; })) {
+      return;
+    }
+
+    items.push(item);
+  }
+
   function collectItems(entries) {
     return (entries || []).reduce(function (items, entry) {
       if (entry.url) {
-        items.push({
+        pushUniqueItem(items, {
           title: entry.title || '',
           url: entry.url
         });
@@ -19,7 +31,7 @@
       if (Array.isArray(entry.children)) {
         entry.children.forEach(function (child) {
           if (child.url) {
-            items.push({
+            pushUniqueItem(items, {
               title: child.title || '',
               url: child.url
             });
@@ -74,13 +86,32 @@
     }
 
     var items = collectItems(navigation[navKey]);
-    var currentIndex = items.findIndex(function (item) {
-      return item.url === currentUrl;
-    });
+    var headerItems = navigation.header || [];
+    var currentIndex;
     var previous = navigatorElement.querySelector('.previous');
     var next = navigatorElement.querySelector('.next');
 
+    headerItems.forEach(function (entry) {
+      var title = '';
+
+      if (entry.titles && entry.titles.ja) {
+        title = entry.titles.ja;
+      } else if (entry.title) {
+        title = entry.title;
+      }
+
+      pushUniqueItem(items, {
+        title: title,
+        url: entry.url
+      });
+    });
+
+    currentIndex = items.findIndex(function (item) {
+      return item.url === currentUrl;
+    });
+
     if (currentIndex === -1) {
+      navigatorElement.remove();
       return;
     }
 
