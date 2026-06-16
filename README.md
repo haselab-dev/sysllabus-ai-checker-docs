@@ -6,14 +6,16 @@
 
 [https://haselab-dev.github.io/sysllabus-ai-checker-docs](https://haselab-dev.github.io/sysllabus-ai-checker-docs)
 
-
 ## localでホスティングする場合
 
 RubyとBundlerを利用してローカルでビルド・プレビューする手順です。
-Bundler が入っていない場合は `gem install bundler` を実行してください。
 
 事前準備として，
+
 ```bash
+# rubyのインストール
+mise install
+# rubyの依存関係をインストール
 bundle install
 ```
 
@@ -30,6 +32,3 @@ bundle exec jekyll serve -s docs
 ```bash
 bundle exec jekyll build -s docs
 ```
-
-
-
